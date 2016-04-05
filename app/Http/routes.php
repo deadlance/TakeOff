@@ -3,8 +3,10 @@ Route::group(['middleware' => ['web']], function () {
     /*
      * These are the web based routes that do not require authentication.
      */
+    Route::get('/', function () {
+        return view('welcome');
+    });
     Route::get('home', array('as' => 'home', function () {
-        //return var_dump(Sentry::check());
         return view('welcome');
     }));
 
