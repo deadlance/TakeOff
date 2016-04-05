@@ -1,16 +1,30 @@
 <?php
+Route::group(['middleware' => ['web']], function () {
+    /*
+     * These are the web based routes that do not require authentication.
+     */
+    Route::get('home', array('as' => 'home', function () {
+        //return var_dump(Sentry::check());
+        return view('welcome');
+    }));
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
+    /*
+     * This group just requires you to be logged in. Any group.
+     */
+    Route::group(['middleware' => ['sentry.auth']], function() {
+
+    });
+    /*
+     * Routes available to defined user groups.
+     */
+    Route::group(['middleware' => ['sentry.member:Admins']], function () {
+
+    });
+
+
+    Route::group(['middlware' => ['sentry.member:CustomerService']], function() {
+    });
+    Route::group(['middlware' => ['sentry.member:Sales']], function() {
+    });
 });
