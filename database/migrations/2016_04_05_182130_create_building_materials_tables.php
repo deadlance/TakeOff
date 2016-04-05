@@ -42,17 +42,15 @@ class CreateBuildingMaterialsTables extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->text('description');
+
             $table->integer('unit_of_measure_id')->unsigned();
             $table->integer('building_material_categories_id')->unsigned();
 
-            $table->timestamps();
-        });
-
-        Schema::table('building_materials', function($table) {
             $table->foreign('unit_of_measure_id')->references('id')->on('unit_of_measure')->onDelete('cascade');
             $table->foreign('building_material_categories_id')->references('id')->on('building_material_categories')->onDelete('cascade');
-        });
 
+            $table->timestamps();
+        });
 
     }
 
