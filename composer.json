@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "rydurham/sentinel": "^2.3",
         "Illuminate/Html": "^5.0",
-        "laracasts/flash": "^2.0"
+        "laracasts/flash": "^2.0",
+        "orangehill/iseed": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

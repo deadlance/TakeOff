@@ -1,7 +1,8 @@
-# Utilizes Rydurham/Sentinel
+composer install
+php artisan migrate:refresh --seed
 php artisan db:seed --class=SentinelDatabaseSeeder
 
-
+# Utilizes Rydurham/Sentinel
 
 # Laravel PHP Framework
 

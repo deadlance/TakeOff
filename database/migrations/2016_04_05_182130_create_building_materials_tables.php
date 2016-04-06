@@ -46,7 +46,7 @@ class CreateBuildingMaterialsTables extends Migration
             $table->integer('unit_of_measure_id')->unsigned();
             $table->integer('building_material_categories_id')->unsigned();
 
-            $table->foreign('unit_of_measure_id')->references('id')->on('unit_of_measure')->onDelete('cascade');
+            $table->foreign('unit_of_measure_id')->references('id')->on('unit_of_measures')->onDelete('cascade');
             $table->foreign('building_material_categories_id')->references('id')->on('building_material_categories')->onDelete('cascade');
 
             $table->timestamps();
@@ -63,6 +63,6 @@ class CreateBuildingMaterialsTables extends Migration
     {
         Schema::drop('building_materials');
         Schema::drop('building_material_categories');
-        Schema::drop('unit_of_measure');
+        Schema::drop('unit_of_measures');
     }
 }

@@ -159,6 +159,7 @@ return [
 
       Illuminate\Html\HtmlServiceProvider::class,
       Laracasts\Flash\FlashServiceProvider::class,
+      Orangehill\Iseed\IseedServiceProvider::class,
 
 
     ],
