@@ -157,6 +157,10 @@ return [
         App\Providers\RouteServiceProvider::class,
       Sentinel\SentinelServiceProvider::class,
 
+      Illuminate\Html\HtmlServiceProvider::class,
+      Laracasts\Flash\FlashServiceProvider::class,
+
+
     ],
 
     /*
@@ -202,6 +206,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        'Form'=> Illuminate\Html\FormFacade::class,
+        'HTML'=> Illuminate\Html\HtmlFacade::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
+        'Flash' => Laracasts\Flash\Flash::class,
 
     ],
 

@@ -11,6 +11,30 @@ Route::group(['middleware' => ['web']], function () {
     }));
 
 
+
+
+
+
+
+
+
+
+    Route::resource('tags', 'TagsController');
+    Route::resource('unit_of_measure', 'Unit_Of_MeasureController');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /*
      * This group just requires you to be logged in. Any group.
      */

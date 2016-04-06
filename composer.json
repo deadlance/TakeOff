@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "rydurham/sentinel": "^2.3"
+        "rydurham/sentinel": "^2.3",
+        "Illuminate/Html": "^5.0",
+        "laracasts/flash": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

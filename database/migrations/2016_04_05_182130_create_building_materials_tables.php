@@ -13,7 +13,7 @@ class CreateBuildingMaterialsTables extends Migration
     public function up()
     {
 
-        Schema::create('unit_of_measure', function($table) {
+        Schema::create('unit_of_measures', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
 
