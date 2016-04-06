@@ -2,6 +2,11 @@ composer install
 php artisan migrate:refresh --seed
 php artisan db:seed --class=SentinelDatabaseSeeder
 
+
+# Interesting Articles for Later Reading
+http://www.tutorials.kode-blog.com/laravel-5-angularjs-tutorial
+https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers
+
 # Utilizes Rydurham/Sentinel
 
 # Laravel PHP Framework
