@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::resource('tags', 'TagsController');
     Route::resource('unit_of_measure', 'Unit_Of_MeasureController');
+    Route::resource('building_materials', 'BuildingMaterialsController');
 
 
 

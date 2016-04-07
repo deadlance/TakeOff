@@ -8,6 +8,8 @@ http://www.tutorials.kode-blog.com/laravel-5-angularjs-tutorial
 https://scotch.io/tutorials/simple-laravel-crud-with-resource-controllers
 
 # Utilizes Rydurham/Sentinel
+# Utilizes Laracasts/Generators
+https://github.com/laracasts/Laravel-5-Generators-Extended
 
 # Laravel PHP Framework
 
