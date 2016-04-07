@@ -16,7 +16,8 @@ class TagsController extends Controller {
    */
   public function index() {
     $tags = Tags::all();
-    return view('tags.index')->with('tags', $tags);
+    //return view('tags.index')->with('tags', $tags);
+    return $tags;
   }
 
   /**
@@ -35,9 +36,8 @@ class TagsController extends Controller {
     );
     $validator = Validator::make(Input::all(), $rules);
     if ($validator->fails()) {
-      return Redirect::to('tags/create')
-        ->withErrors($validator)
-        ->withInput(Input::all());
+      //return Redirect::to('tags/create')->withErrors($validator)->withInput(Input::all());
+      return $tag;
     } else {
       $tag = new Tags;
       $tag->name = Input::get('name');
@@ -50,7 +50,8 @@ class TagsController extends Controller {
       $tag->description = Input::get('description');
       $tag->save();
 
-      return Redirect::to('tags');
+      //return Redirect::to('tags');
+      return $tag;
     }
   }
 
@@ -64,9 +65,8 @@ class TagsController extends Controller {
     );
     $validator = Validator::make(Input::all(), $rules);
     if ($validator->fails()) {
-      return Redirect::to('tags/' . $id . '/edit')
-        ->withErrors($validator)
-        ->withInput(Input::all);
+      //return Redirect::to('tags/' . $id . '/edit')->withErrors($validator)->withInput(Input::all);
+      return $tag;
     } else {
       $tag = Tags::find($id);
       $tag->name = Input::get('name');
@@ -79,7 +79,8 @@ class TagsController extends Controller {
       $tag->description = Input::get('description');
       $tag->save();
 
-      return Redirect::to('tags');
+      //return Redirect::to('tags');
+      return $tag;
     }
   }
 
@@ -90,7 +91,7 @@ class TagsController extends Controller {
   public function destroy($id) {
     $tag = Tags::find($id);
     $tag->delete();
-    return Redirect::to('tags');
+    //return Redirect::to('tags');
   }
 
   /**
@@ -99,8 +100,8 @@ class TagsController extends Controller {
    */
   public function show($id) {
     $tag = Tags::find($id);
-    return view('tags.show')
-      ->with('tag', $tag);
+    //return view('tags.show')->with('tag', $tag);
+    return $tag;
   }
 
   /**
@@ -109,8 +110,8 @@ class TagsController extends Controller {
    */
   public function edit($id) {
     $tag = Tags::find($id);
-    return view('tags.edit')
-      ->with('tag', $tag);
+    //return view('tags.edit')->with('tag', $tag);
+    return $tag;
   }
 
 }
