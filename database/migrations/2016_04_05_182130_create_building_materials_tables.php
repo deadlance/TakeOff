@@ -24,17 +24,6 @@ class CreateBuildingMaterialsTables extends Migration
             $table->timestamps();
         });
 
-        Schema::create('building_material_categories', function($table) {
-            $table->engine = 'InnoDB';
-            $table->increments('id');
-
-            $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description');
-
-            $table->timestamps();
-        });
-
         Schema::create('building_materials', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -44,10 +33,7 @@ class CreateBuildingMaterialsTables extends Migration
             $table->text('description');
 
             $table->integer('unit_of_measure_id')->unsigned();
-            $table->integer('building_material_categories_id')->unsigned();
-
             $table->foreign('unit_of_measure_id')->references('id')->on('unit_of_measures')->onDelete('cascade');
-            $table->foreign('building_material_categories_id')->references('id')->on('building_material_categories')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -62,7 +48,6 @@ class CreateBuildingMaterialsTables extends Migration
     public function down()
     {
         Schema::drop('building_materials');
-        Schema::drop('building_material_categories');
         Schema::drop('unit_of_measures');
     }
 }
