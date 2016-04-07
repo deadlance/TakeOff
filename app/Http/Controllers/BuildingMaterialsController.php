@@ -23,6 +23,7 @@ class BuildingMaterialsController extends Controller
       //$b = BuildingMaterial::find(8);
       //$b->tags()->attach([16,17,18]);
 
+      //return "<pre>" .json_encode(BuildingMaterial::with('unit_of_measure')->with('tags')->get(), JSON_PRETTY_PRINT) . "</pre>";
       return BuildingMaterial::with('unit_of_measure')->with('tags')->get();
     }
 }

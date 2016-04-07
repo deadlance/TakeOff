@@ -10,11 +10,11 @@ class BuildingMaterial extends Model
     protected $fillable = ['name', 'slug', 'description', 'unit_of_measure_id'];
 
     public function tags() {
-        return $this->belongsToMany('App\Tags', 'building_material_tag', 'building_material_id', 'tag_id');
+        return $this->belongsToMany('App\Tags', 'building_material_tag', 'building_material_id', 'tag_id')->select(array('id', 'name'));
     }
 
     public function unit_of_measure() {
-        return $this->belongsTo('App\Unit_Of_Measure');
+        return $this->belongsTo('App\Unit_Of_Measure')->select(array('id', 'name'));
     }
 
 }
