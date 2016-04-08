@@ -1,27 +1,13 @@
 <?php
 Route::group(['middleware' => ['web']], function () {
-    /*
-     * These are the web based routes that do not require authentication.
-     */
-    Route::get('/', function () {
-        return view('welcome');
+
+
+    Route::group(['middleware' => ['sentry.guest']], function() {
+        return Redirect::to('/login');
     });
-    Route::get('home', array('as' => 'home', function () {
-        return view('welcome');
-    }));
 
 
 
-
-
-
-
-
-
-
-    Route::resource('tags', 'TagsController');
-    Route::resource('unit_of_measure', 'Unit_Of_MeasureController');
-    Route::resource('building_materials', 'BuildingMaterialsController');
 
 
 
@@ -41,11 +27,42 @@ Route::group(['middleware' => ['web']], function () {
      */
     Route::group(['middleware' => ['sentry.auth']], function() {
 
+        /*
+         * These are the web based routes that do not require authentication.
+         */
+        Route::get('/', function () {
+            return view('welcome');
+        });
+        Route::get('home', array('as' => 'home', function () {
+            return view('welcome');
+        }));
+
+
+
+
+
+
+
+
+
+
+
+
     });
     /*
      * Routes available to defined user groups.
      */
     Route::group(['middleware' => ['sentry.member:Admins']], function () {
+
+        Route::get('building_materials', 'BuildingMaterialsController@webIndex');
+
+        // Admin API Routes
+        Route::resource('api/tags', 'TagsController');
+        Route::resource('api/unit_of_measure', 'Unit_Of_MeasureController');
+        Route::resource('api/building_materials', 'BuildingMaterialsController');
+        Route::get('api/building_materials/{id}/tags', 'BuildingMaterialsController@getTags');
+        Route::get('api/building_materials/{buildingMaterialID}/addTag/{tagID}', 'BuildingMaterialsController@addTag');
+        Route::get('api/building_materials/{buildingMaterialID}/removeTag/{tagID}', 'BuildingMaterialsController@removeTag');
 
     });
 

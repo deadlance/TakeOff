@@ -15,7 +15,8 @@ class TagsController extends Controller {
    * @return $this
    */
   public function index() {
-    $tags = Tags::all();
+    //$tags = Tags::all();
+    $tags = Tags::orderBy('name')->get();
     //return view('tags.index')->with('tags', $tags);
     return $tags;
   }

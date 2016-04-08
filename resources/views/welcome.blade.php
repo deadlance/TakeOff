@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>4CornersHomes Takeoff Application</title>
+@extends('master.index')
 
-
-    </head>
-    <body>
+@section('content')
+<div class="container">
 
     @if (Sentry::check() && Sentry::getUser()->hasAccess('admin'))
        The admin can view this
@@ -21,6 +17,6 @@
 <br />
     Anyone Can see this
 
+</div>
 
-    </body>
-</html>
+    @endsection
