@@ -35,7 +35,7 @@
 	<body>
 
 
-	@include('master.sidebar')
+	@include('master.navbar')
 
 		<!-- Container -->
 		<div class="container">

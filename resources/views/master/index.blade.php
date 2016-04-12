@@ -13,7 +13,7 @@
 </head>
 <body>
 
-@include('master.sidebar')
+@include('master.navbar')
 
 
 @yield('content')

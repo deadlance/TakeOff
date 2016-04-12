@@ -15,11 +15,21 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">User Admin Menu
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li {!! (Request::is('users*') ? 'class="active"' : '') !!}><a href="{{ action('\\Sentinel\Controllers\UserController@index') }}">Users</a></li>
-                            <li {!! (Request::is('groups*') ? 'class="active"' : '') !!}><a href="{{ action('\\Sentinel\Controllers\GroupController@index') }}">Groups</a></li>
+                            <li {!! (Request::is('users*') ? 'class="active"' : '') !!}><a
+                                        href="{{ action('\\Sentinel\Controllers\UserController@index') }}">Users</a>
+                            </li>
+                            <li {!! (Request::is('groups*') ? 'class="active"' : '') !!}><a
+                                        href="{{ action('\\Sentinel\Controllers\GroupController@index') }}">Groups</a>
+                            </li>
                         </ul>
                     </li>
-                    <li><a href="/building_materials">Building Materials</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Assembly Menu
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/building_materials">Building Materials</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -28,13 +38,16 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Account
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li {!! (Request::is('profile') ? 'class="active"' : '') !!}><a href="{{ route('sentinel.profile.show') }}">Profile</a></li>
+                            <li {!! (Request::is('profile') ? 'class="active"' : '') !!}><a
+                                        href="{{ route('sentinel.profile.show') }}">Profile</a></li>
                             <li><a href="{{ route('sentinel.logout') }}">Logout</a></li>
                         </ul>
                     </li>
                 @else
-                    <li {!! (Request::is('login') ? 'class="active"' : '') !!}><a href="{{ route('sentinel.login') }}">Login</a></li>
-                    <li {!! (Request::is('users/create') ? 'class="active"' : '') !!}><a href="{{ route('sentinel.register.form') }}">Register</a></li>
+                    <li {!! (Request::is('login') ? 'class="active"' : '') !!}><a href="{{ route('sentinel.login') }}">Login</a>
+                    </li>
+                    <li {!! (Request::is('users/create') ? 'class="active"' : '') !!}><a
+                                href="{{ route('sentinel.register.form') }}">Register</a></li>
                 @endif
             </ul>
         </div>
