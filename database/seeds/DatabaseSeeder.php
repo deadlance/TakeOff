@@ -513,6 +513,15 @@ class DatabaseSeeder extends Seeder
               'created_at' => '2016-04-06 19:05:17',
               'updated_at' => '2016-04-06 19:05:17',
             ),
+          55 =>
+            array (
+              'id' => 71,
+              'name' => 'Lumber',
+              'slug' => 'lumber',
+              'description' => '',
+              'created_at' => '2016-04-06 19:05:17',
+              'updated_at' => '2016-04-06 19:05:17',
+            ),
         ));
 
         \DB::table('unit_of_measures')->delete();

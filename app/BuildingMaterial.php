@@ -17,4 +17,8 @@ class BuildingMaterial extends Model
         return $this->belongsTo('App\Unit_Of_Measure')->select(array('id', 'name'));
     }
 
+    public function takeoffs() {
+        return $this->belongsToMany('App\Takeoffs', 'building_material_takeoff', 'building_material_id', 'takeoff_id');
+    }
+
 }
