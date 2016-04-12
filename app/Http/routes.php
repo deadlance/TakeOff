@@ -27,15 +27,24 @@ Route::group(['middleware' => ['web']], function () {
    */
   Route::group(['middleware' => ['sentry.member:Admins']], function () {
 
+    // Non API Routes
     Route::get('building_materials', 'BuildingMaterialsController@webIndex');
+    Route::get('takeoffs','TakeoffsController@webIndex');
 
+
+    //******************************************************************************************************************
     // Admin API Routes
     Route::resource('api/tags', 'TagsController');
+
     Route::resource('api/unit_of_measure', 'Unit_Of_MeasureController');
+
     Route::resource('api/building_materials', 'BuildingMaterialsController');
     Route::get('api/building_materials/{id}/tags', 'BuildingMaterialsController@getTags');
     Route::get('api/building_materials/{buildingMaterialID}/addTag/{tagID}', 'BuildingMaterialsController@addTag');
     Route::get('api/building_materials/{buildingMaterialID}/removeTag/{tagID}', 'BuildingMaterialsController@removeTag');
+
+    Route::resource('api/takeoffs', 'TakeoffsController');
+
 
   });
 
