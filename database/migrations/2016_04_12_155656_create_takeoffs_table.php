@@ -19,10 +19,10 @@ class CreateTakeoffsTable extends Migration {
 
       $table->integer('magento_product_id')->unsigned();
       $table->integer('magento_option_id')->unsigned();
-      
 
       $table->timestamps();
     });
+
   }
 
   /**
