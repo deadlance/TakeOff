@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\Tags;
-use Input, Validator, Session, Redirect;
+use Input, Validator, Session, Redirect, DB, Response;
 
 class TagsController extends Controller {
 
@@ -113,6 +113,19 @@ class TagsController extends Controller {
     $tag = Tags::find($id);
     //return view('tags.edit')->with('tag', $tag);
     return $tag;
+  }
+
+  public function search() {
+    $term = Input::get('term');
+    $results = array();
+    $queries = DB::table('tags')
+      ->where('name', 'LIKE', '%' . $term . '%')
+      ->take(5)
+      ->get();
+    foreach($queries as $query) {
+      $results[] = ['label' => $query->name];
+    }
+    return Response::json($results);
   }
 
 }

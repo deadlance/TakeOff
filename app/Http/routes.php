@@ -35,16 +35,19 @@ Route::group(['middleware' => ['web']], function () {
 
     //******************************************************************************************************************
     // Admin API Routes
-    Route::resource('api/tags', 'TagsController');
+    Route::get('/api/tags/search', 'TagsController@search');
+    Route::get('/api/building_materials/byTag', 'BuildingMaterialsController@byTag');
 
-    Route::resource('api/unit_of_measure', 'Unit_Of_MeasureController');
+    Route::resource('/api/tags', 'TagsController');
 
-    Route::resource('api/building_materials', 'BuildingMaterialsController');
-    Route::get('api/building_materials/{id}/tags', 'BuildingMaterialsController@getTags');
-    Route::get('api/building_materials/{buildingMaterialID}/addTag/{tagID}', 'BuildingMaterialsController@addTag');
-    Route::get('api/building_materials/{buildingMaterialID}/removeTag/{tagID}', 'BuildingMaterialsController@removeTag');
+    Route::resource('/api/unit_of_measure', 'Unit_Of_MeasureController');
 
-    Route::resource('api/takeoffs', 'TakeoffsController');
+    Route::resource('/api/building_materials', 'BuildingMaterialsController');
+    Route::get('/api/building_materials/{id}/tags', 'BuildingMaterialsController@getTags');
+    Route::get('/api/building_materials/{buildingMaterialID}/addTag/{tagID}', 'BuildingMaterialsController@addTag');
+    Route::get('/api/building_materials/{buildingMaterialID}/removeTag/{tagID}', 'BuildingMaterialsController@removeTag');
+
+    Route::resource('/api/takeoffs', 'TakeoffsController');
 
 
   });

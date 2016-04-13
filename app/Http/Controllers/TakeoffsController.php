@@ -43,4 +43,9 @@ class TakeoffsController extends Controller {
     return view('takeoffs.index');
   }
 
+  public function webEdit($id) {
+    $takeoff = Takeoff::findOrFail($id)->with('building_materials')->where('id', $id)->first();
+    return view('takeoffs.edit')->with('takeoff', $takeoff);
+  }
+
 }

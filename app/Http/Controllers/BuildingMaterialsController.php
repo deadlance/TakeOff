@@ -146,6 +146,14 @@ class BuildingMaterialsController extends Controller {
     }
   }
 
+  public function byTag() {
+    $buildingMaterial = BuildingMaterial::whereHas('tags', function($q) {
+      $q->where('name', 'like', '%' . Input::get('tag') . '%');
+    })->with('unit_of_measure')->get();
+    return $buildingMaterial;
+  }
+
+
   /**
    * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
    */
