@@ -28,7 +28,7 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/building_materials">Building Materials</a></li>
-                            <li><a href="#">Takeoffs</a></li>
+                            <li><a href="/takeoffs">Takeoffs</a></li>
                         </ul>
                     </li>
                 @endif

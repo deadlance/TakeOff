@@ -30,6 +30,7 @@ Route::group(['middleware' => ['web']], function () {
     // Non API Routes
     Route::get('building_materials', 'BuildingMaterialsController@webIndex');
     Route::get('takeoffs','TakeoffsController@webIndex');
+    Route::get('takeoffs/edit/{id}','TakeoffsController@webEdit');
 
 
     //******************************************************************************************************************
