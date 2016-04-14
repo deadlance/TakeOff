@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use \App\BuildingMaterial;
 
 use App\Http\Requests;
-use Input, Validator, Session, Redirect;
+use Input, Validator, Session, Redirect, DB;
 
 class BuildingMaterialsController extends Controller {
   /**
@@ -149,7 +149,8 @@ class BuildingMaterialsController extends Controller {
   public function byTag() {
     $buildingMaterial = BuildingMaterial::whereHas('tags', function($q) {
       $q->where('name', 'like', '%' . Input::get('tag') . '%');
-    })->with('unit_of_measure')->get();
+    })->with('unit_of_measure')->with('tags')->get();
+
     return $buildingMaterial;
   }
 

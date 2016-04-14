@@ -39,6 +39,29 @@ class TakeoffsController extends Controller {
   public function edit() {
   }
 
+  public function addBuildingMaterial($takeoff_id, $building_material_id) {
+    $takeoff = Takeoff::find($takeoff_id);
+    if ($takeoff->building_materials()->attach($building_material_id,['qty' => 0, 'notes' => ''])) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+
+  }
+
+  public function removeBuildingMaterial($takeoff_id, $building_material_id) {
+    $takeoff = Takeoff::find($takeoff_id);
+    if ($takeoff->building_materials()->detach($building_material_id)) {
+      return 1;
+    }
+    else {
+      return 0;
+    }
+
+  }
+
+
   public function webIndex() {
     return view('takeoffs.index');
   }

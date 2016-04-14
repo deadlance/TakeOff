@@ -48,6 +48,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/api/building_materials/{buildingMaterialID}/removeTag/{tagID}', 'BuildingMaterialsController@removeTag');
 
     Route::resource('/api/takeoffs', 'TakeoffsController');
+    Route::get('/api/takeoffs/addBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@addBuildingMaterial');
+    Route::get('/api/takeoffs/removeBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@removeBuildingMaterial');
+
 
 
   });
