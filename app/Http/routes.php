@@ -28,9 +28,10 @@ Route::group(['middleware' => ['web']], function () {
   Route::group(['middleware' => ['sentry.member:Admins']], function () {
 
     // Non API Routes
-    Route::get('building_materials', 'BuildingMaterialsController@webIndex');
-    Route::get('takeoffs','TakeoffsController@webIndex');
-    Route::get('takeoffs/edit/{id}','TakeoffsController@webEdit');
+    Route::get('/building_materials', 'BuildingMaterialsController@webIndex');
+    Route::get('/takeoffs','TakeoffsController@webIndex');
+    Route::get('/takeoffs/create','TakeoffsController@create');
+    Route::get('/takeoffs/edit/{id}','TakeoffsController@webEdit');
 
 
     //******************************************************************************************************************

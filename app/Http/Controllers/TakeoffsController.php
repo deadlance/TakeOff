@@ -33,6 +33,7 @@ class TakeoffsController extends Controller {
 
   // This is a web create form, we may not need this.
   public function create() {
+    return view('takeoffs.create');
   }
 
   // This is a web edit form, we may not need this.

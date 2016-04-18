@@ -28,7 +28,8 @@
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/building_materials">Building Materials</a></li>
-                            <li><a href="/takeoffs">Takeoffs</a></li>
+                            <li><a href="/takeoffs/create">New Takeoff</a></li>
+                            <li><a href="/takeoffs">View / Edit Takeoffs</a></li>
                         </ul>
                     </li>
                 @endif
