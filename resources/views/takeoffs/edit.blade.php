@@ -28,7 +28,6 @@
             });
         });
 
-
         function getBMS() {
             if (lastTag != '') {
                 getBMSbyTag();
@@ -103,6 +102,46 @@
             });
         }
 
+        function updateTakeoff() {
+            var sendName = $("#takeoffName").val();
+            var sendDescription = $("#takeoffDescription").val();
+            var sendMagentoProductID = $("#takeoffMagento_product_id").val();
+            var sendMagentoOptionID = $("#takeoffMagento_option_id").val();
+
+            $("#submit").val('Please Wait');
+
+            $.ajax({
+                url: '/api/takeoffs/updateTakeoff/{{ $takeoff["id"] }}',
+                type: "get",
+                dataType: 'json',
+                data: { name: sendName, description: sendDescription, magento_product_id: sendMagentoProductID, magento_option_id: sendMagentoOptionID },
+                success: function (data) {
+                    setTimeout(function(){
+                        $("#submit").val('Update');
+                    },2000);
+                }
+            });
+        }
+
+        function updateBM(bmid) {
+            var sendqty = $("#" + bmid + "-qty").val();
+            var sendnotes = $("#" + bmid + "-notes").val();
+
+            $.ajax({
+                url: '/api/takeoffs/updateBuildingMaterial/{{ $takeoff['id'] }}/' + bmid, //{takeoff_id}/{building_material_id}',
+                type: "get",
+                dataType: 'json',
+                data: { qty: sendqty, notes: sendnotes },
+                success: function (data) {
+                    $("#" + bmid + "-row").css('background-color', '#F0FFF0');
+
+                    setTimeout(function(){
+                        $("#" + bmid + "-row").css('background-color', '#FFFFFF');
+                    },2000);
+                }
+            });
+        }
+
         function addBM(bmid) {
 
             var addBM = "";
@@ -122,7 +161,7 @@
 
                             // I need to get the newly added building material...
                             addBM = addBM + "<div class='usedBMS' data-id='" + bmid + "'>";
-                            addBM = addBM + "<div class='row' style='margin-bottom: 5px;'>";
+                            addBM = addBM + "<div class='row' style='margin-bottom: 5px;' id='" + bmid + "-row'>";
                             addBM = addBM + "<form class='form-inline' role='form'>";
                             addBM = addBM + "<div class='col-lg-1'>";
                             addBM = addBM + "<div class='form-group'>";
@@ -138,17 +177,18 @@
                             addBM = addBM + "</div>";
                             addBM = addBM + "<div class='col-lg-3'>";
                             addBM = addBM + "<div class='form-group'>";
-                            addBM = addBM + "<input type='text' class='form-control' name='qty' value=''/>";
+                            addBM = addBM + "<input type='text' class='form-control' name='qty' id='" + bmid + "-qty' onBlur='updateBM(" + bmid + ");' value=''/>";
                             addBM = addBM + "</div>";
                             addBM = addBM + "</div>";
-                            addBM = addBM + "<div class='col-lg-4'>";
+                            addBM = addBM + "<div class='col-lg-3'>";
                             addBM = addBM + "<div class='form-group'>";
-                            addBM = addBM + "<input type='text' class='form-control' name='notes' value='' />";
+                            addBM = addBM + "<input type='text' class='form-control' name='notes' id='" + bmid + "-notes' onBlur='updateBM(" + bmid + ");' value='' />";
                             addBM = addBM + "</div>";
                             addBM = addBM + "</div>";
-                            addBM = addBM + "<div class='col-lg-1'>";
+                            addBM = addBM + "<div class='col-lg-2'>";
                             addBM = addBM + "<div class='form-group'>";
-                            addBM = addBM + "<button class='btn btn-default' onClick='removeBM(\"" + newBM['id'] + "\"); return false;'>X</button>";
+                            addBM = addBM + "<button class='btn btn-default' onClick='removeBM(\"" + newBM['id'] + "\"); return false;'>X</button> ";
+                            addBM = addBM + "<button class='btn btn-default' onClick='updateBM(\"" + newBM['id'] + "\"); return false;'>UPD</button>";
                             addBM = addBM + "</div>";
                             addBM = addBM + "</div>";
                             addBM = addBM + "</form>";
@@ -161,8 +201,6 @@
                     });
                 }
             });
-
-
         }
 
         function removeBM(bmid) {
@@ -187,6 +225,7 @@
             getBMS();
         }
 
+
     </script>
 @endsection
 
@@ -195,9 +234,35 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <div class="row" style="margin-bottom: 5px;">
-                    <form class="form-inline" role="form">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" name="name" id="takeoffName" value="{{ $takeoff['name'] }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" name="description" id="takeoffDescription">{{ $takeoff['description'] }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="magento_product_id">Magento Product ID</label>
+                            <input type="text" class="form-control" name="magento_product_id" id="takeoffMagento_product_id" value="{{ $takeoff['magento_product_id'] }}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="magento_option_id">Magento Option ID</label>
+                            <input type="text" class="form-control" name="magento_option_id" id="takeoffMagento_option_id" value="{{ $takeoff['magento_option_id'] }}" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" name="submit" id="submit" value="Update" onClick="updateTakeoff();" />
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row" style="margin-bottom: 8px; border: 1px dotted lightgrey;">
+                    <div class="col-lg-12">
+                        <h3>Building Materials</h3>
+                    </div>
+                    <form class="form-inline" role="form">
                         <div class="col-lg-1">
                             ID
                         </div>
@@ -207,10 +272,10 @@
                         <div class="col-lg-3">
                             Quantity
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-3">
                             Notes
                         </div>
-                        <div class="col-lg-1">
+                        <div class="col-lg-2">
                             Actions
                         </div>
 
@@ -223,7 +288,7 @@
 
                     @foreach($takeoff['building_materials'] as $bm)
                         <div class="usedBMS" data-id="{{ $bm['id'] }}">
-                            <div class="row" style="margin-bottom: 5px;">
+                            <div class="row" style="margin-bottom: 5px;" id="{{ $bm['id'] }}-row">
                                 <form class="form-inline" role="form">
 
                                     <div class="col-lg-1">
@@ -240,21 +305,18 @@
                                     </div>
                                     <div class="col-lg-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="qty"
-                                                   value="{{ $bm['qty'] }}"/>
+                                            <input type="text" class="form-control" name="qty" id="{{ $bm['id'] }}-qty" value="{{ $bm['pivot']['qty'] }}" onBlur="updateBM('{{ $bm["id"] }}');"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" name="notes"
-                                                   value="{{ $bm['notes'] }}"/>
+                                            <input type="text" class="form-control" name="notes" id="{{ $bm['id'] }}-notes" value="{{ $bm['pivot']['notes'] }}" onBlur="updateBM('{{ $bm["id"] }}');"/>
                                         </div>
                                     </div>
-                                    <div class="col-lg-1">
+                                    <div class="col-lg-2">
                                         <div class="form-group">
-                                            <button class="btn btn-default"
-                                                    onClick="removeBM('{{ $bm['id'] }}'); return false;">X
-                                            </button>
+                                            <button class="btn btn-default" onClick="removeBM('{{ $bm['id'] }}'); return false;">X</button>
+                                            <button class="btn btn-default" onClick="updateBM('{{ $bm["id"] }}'); return false;">UPD</button>
                                         </div>
                                     </div>
 

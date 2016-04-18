@@ -31,6 +31,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/building_materials', 'BuildingMaterialsController@webIndex');
     Route::get('/takeoffs','TakeoffsController@webIndex');
     Route::get('/takeoffs/create','TakeoffsController@create');
+    Route::post('/takeoffs/create','TakeoffsController@store');
+
     Route::get('/takeoffs/edit/{id}','TakeoffsController@webEdit');
 
 
@@ -51,8 +53,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::resource('/api/takeoffs', 'TakeoffsController');
     Route::get('/api/takeoffs/addBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@addBuildingMaterial');
     Route::get('/api/takeoffs/removeBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@removeBuildingMaterial');
-
-
+    Route::get('/api/takeoffs/updateBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@updateBuildingMaterial');
+    Route::get('/api/takeoffs/updateTakeoff/{takeoff_id}', 'TakeoffsController@update');
 
   });
 

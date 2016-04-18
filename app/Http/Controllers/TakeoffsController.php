@@ -25,9 +25,23 @@ class TakeoffsController extends Controller {
   }
 
   public function store() {
+    $takeoff = new Takeoff;
+    $takeoff->name = Input::get('name');
+    $takeoff->description = Input::get('description');
+    $takeoff->magento_product_id = Input::get('magento_product_id');
+    $takeoff->magento_option_id = Input::get('magento_option_id');
+    $takeoff->save();
+    return redirect('/takeoffs/edit/' . $takeoff->id);
   }
 
   public function update($id) {
+    $takeoff = Takeoff::find($id);
+    $takeoff->name = Input::get('name');
+    $takeoff->description = Input::get('description');
+    $takeoff->magento_product_id = Input::get('magento_product_id');
+    $takeoff->magento_option_id = Input::get('magento_option_id');
+    $takeoff->save();
+    return 1;
   }
 
 
@@ -62,6 +76,14 @@ class TakeoffsController extends Controller {
 
   }
 
+  public function updateBuildingMaterial($takeoff_id, $building_material_id) {
+    $takeoff = Takeoff::find($takeoff_id);
+    $takeoff->building_materials()->detach($building_material_id);
+    $takeoff->building_materials()->attach($building_material_id,['qty' => Input::get('qty'), 'notes' => Input::get('notes')]);
+    //echo Input::get("qty") . "<br />" . Input::get("notes");
+    return 1;
+  }
+
 
   public function webIndex() {
     return view('takeoffs.index');
@@ -69,6 +91,8 @@ class TakeoffsController extends Controller {
 
   public function webEdit($id) {
     $takeoff = Takeoff::findOrFail($id)->with('building_materials')->where('id', $id)->first();
+    //echo "<pre>" . json_encode($takeoff, JSON_PRETTY_PRINT) . "</pre>";
+    //exit;
     return view('takeoffs.edit')->with('takeoff', $takeoff);
   }
 
