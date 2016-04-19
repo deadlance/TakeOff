@@ -5,6 +5,8 @@ Route::group(['middleware' => ['web']], function () {
     return Redirect::to('/login');
   });
 
+
+
   /*
    * This group just requires you to be logged in. Any group.
    */

@@ -24,8 +24,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function building_materials() {
-        return $this->belongsToMany('App\BuildingMaterial','building_material_users', 'user_id', 'building_material_id')->withPivot('price')->withPivot('identifying_number');
+    public function price() {
+        return $this->belongsToMany('App\BuildingMaterial','building_material_user', 'user_id', 'building_material_id')->select(array('building_material_id', 'user_id', 'price','identifying_number'));
     }
 
 }

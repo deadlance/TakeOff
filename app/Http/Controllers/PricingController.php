@@ -11,6 +11,7 @@ use Input, Validator, Session, Redirect, DB, Sentry;
 use App\BuildingMaterial;
 use App\Tags;
 use App\Unit_Of_Measure;
+use App\User;
 
 class PricingController extends Controller {
 
@@ -25,12 +26,20 @@ class PricingController extends Controller {
   }
 
   public function getSupplierPricing($supplier_id) {
-    //$user = Sentry::findUserById($supplier_id);
-
-    // Need to get all the building materials and all pricing and identifying numbers for this user
-
-    return BuildingMaterial::orderBy('name')->with('unit_of_measure')->with('tags')->get();
-
+    $user = User::find($supplier_id)->where('id', $supplier_id)->orderBy('email')->with('price')->get();
+    $pricing = $user[0]['price'];
+    $buildingMaterials = BuildingMaterial::orderBy('name')->with('unit_of_measure')->with('tags')->get();
+    foreach($buildingMaterials as $bm) {
+      $bm['price'] = '';
+      $bm['identifying_number'] = '';
+      foreach($pricing as $p) {
+        if($bm['id'] == $p['building_material_id']) {
+          $bm['price'] = $p['price'];
+          $bm['identifying_number'] = $p['identifying_number'];
+        }
+      }
+    }
+    return $buildingMaterials;
   }
 
 
@@ -40,7 +49,7 @@ class PricingController extends Controller {
 
 
   public function viewSupplierPricing($supplier_id) {
-    return view('pricing.bySupplier');
+    return view('pricing.bySupplier')->with('supplier_id', $supplier_id);
   }
 
 

@@ -5,18 +5,47 @@
         $(document).ready(function () {
             var html = '';
             $.ajax({
-                url: '/api/pricing/getSuppliers',
+                url: '/api/pricing/{{ $supplier_id }}',
                 type: "get",
                 dataType: 'json',
                 success: function (data) {
-                    data.forEach(function (u) {
+                    $.each(data, function(idx, obj) {
                         html = html + "<div class='row'>";
-                        html = html + "<div class='col-lg-1'>" + u['id'] + "</div>";
-                        html = html + "<div class='col-lg-4'>" + u['first_name'] + " " + u['last_name'] + "</div>";
-                        html = html + "<div class='col-lg-3'>" + u['email'] + "</div>";
-                        html = html + "<div class='col-lg-2'>" + u['username'] + "</div>";
-                        html = html + "<div class='col-lg-2'><a href='/pricing/" + u['id'] + "'>View Pricing</a></div>";
+                        html = html + "<form>";
+
+                        html = html + "<div class='col-lg-1'>";
+                        html = html + this['id'];
                         html = html + "</div>";
+
+                        html = html + "<div class='col-lg-3'>";
+                        html = html + this['name'];
+                        html = html + "</div>";
+
+                        html = html + "<div class='col-lg-2'>";
+                        html = html + this['unit_of_measure']['name'];
+                        html = html + "</div>";
+
+                        html = html + "<div class='col-lg-2'>";
+                        html = html + "<div class='form-group'>";
+                        html = html + "<input type='text' name='price' class='form-control' value='" + this['price'] + "'/>";
+                        html = html + "</div>";
+                        html = html + "</div>";
+
+                        html = html + "<div class='col-lg-2'>";
+                        html = html + "<div class='form-group'>";
+                        html = html + "<input type='text' name='identifying_number' class='form-control' value='" + this['identifying_number'] + "' />";
+                        html = html + "</div>";
+                        html = html + "</div>";
+
+                        html = html + "<div class='col-lg-2'>";
+                        html = html + "<div class='form-group'>";
+                        html = html + "<button class='btn btn-success' name='save'>Save</button>";
+                        html = html + "</div>";
+                        html = html + "</div>";
+
+                        html = html + "</form>";
+                        html = html + "</div>";
+
                     })
                     $("#suppliers").html(html);
                 }

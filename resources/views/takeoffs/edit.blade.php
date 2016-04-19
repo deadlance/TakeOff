@@ -28,6 +28,12 @@
             });
         });
 
+        function clearFilters() {
+            lastTag = '';
+            $("#searchTag").val('');
+            getBMS();
+        }
+
         function getBMS() {
             if (lastTag != '') {
                 getBMSbyTag();
@@ -335,7 +341,7 @@
                 <div class="panel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            Building Materials
+                            Available Building Materials
                         </div>
                         <div class="panel-body">
                             <form method="GET" action="" onSubmit="getBMSbyTag(); return false;">
@@ -346,6 +352,9 @@
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button" id="filterButton"
                                                 onClick="getBMSbyTag();">Filter
+                                        </button>
+                                        <button class="btn btn-default" type="button" id="filterButton"
+                                                onClick="clearFilters();">Clear
                                         </button>
                                     </span>
                                 </div>
