@@ -36,6 +36,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/takeoffs/edit/{id}','TakeoffsController@webEdit');
 
 
+    //Route::get('/pricing', 'pricingController@webIndex');
+
+
     //******************************************************************************************************************
     // Admin API Routes
     Route::get('/api/tags/search', 'TagsController@search');

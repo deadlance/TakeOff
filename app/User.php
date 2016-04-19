@@ -23,4 +23,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function building_materials() {
+        return $this->belongsToMany('App\BuildingMaterial','building_material_users', 'user_id', 'building_material_id')->withPivot('price')->withPivot('identifying_number');
+    }
+
 }
