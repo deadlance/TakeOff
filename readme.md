@@ -1,13 +1,10 @@
 # Current TODOs
 
-TakeOff - Add new
+Building material pricing per supplier
 
-TakeOff - Edit
+Suppliers need to be able to set their own prices and identifying numbers / sku
 
-TakeOff - Edit - Form for main takeoff data.
-
-TakeOff - Edit - Inline building materials / notes / qty.
-
+Admin needs to be able to view / edit Supplier pricing and indentifying numbers / sku.
 
 # composer install
 

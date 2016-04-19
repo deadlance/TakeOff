@@ -32,6 +32,13 @@
                             <li><a href="/takeoffs">View / Edit Takeoffs</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pricing Menu
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/pricing">Supplier Pricing</a></li>
+                        </ul>
+                    </li>
                 @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">

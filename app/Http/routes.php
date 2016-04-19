@@ -36,7 +36,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/takeoffs/edit/{id}','TakeoffsController@webEdit');
 
 
-    //Route::get('/pricing', 'pricingController@webIndex');
+    Route::get('/pricing', 'PricingController@webIndex');
+    Route::get('/pricing/{supplier_id}', 'PricingController@viewSupplierPricing');
 
 
     //******************************************************************************************************************
@@ -58,6 +59,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/api/takeoffs/removeBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@removeBuildingMaterial');
     Route::get('/api/takeoffs/updateBuildingMaterial/{takeoff_id}/{building_material_id}', 'TakeoffsController@updateBuildingMaterial');
     Route::get('/api/takeoffs/updateTakeoff/{takeoff_id}', 'TakeoffsController@update');
+
+    Route::get('/api/pricing/getSuppliers', 'PricingController@getSuppliers');
+    Route::get('/api/pricing/{supplier_id}', 'PricingController@getSupplierPricing');
+    //Route::resource('/api/pricing', 'PricingController');
 
   });
 
