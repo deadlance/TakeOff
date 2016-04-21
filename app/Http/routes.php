@@ -40,6 +40,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/pricing', 'PricingController@webIndex');
     Route::get('/pricing/{supplier_id}', 'PricingController@viewSupplierPricing');
+    Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateSupplierPricing');
 
 
     //******************************************************************************************************************
