@@ -4,7 +4,7 @@ Building material pricing per supplier
 
 Suppliers need to be able to set their own prices and identifying numbers / sku
 
-Admin needs to be able to view / edit Supplier pricing and indentifying numbers / sku.
+Admin needs to be able to view / edit Supplier pricing and identifying numbers / sku.
 
 # composer install
 

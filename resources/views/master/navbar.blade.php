@@ -40,6 +40,9 @@
                         </ul>
                     </li>
                 @endif
+                @if (Sentry::check() && Sentry::getUser()->inGroup(Sentry::findGroupByName('Supplier')))
+                    <li><a href="/my-pricing">My Pricing</a></li>
+                @endif
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if (Sentry::check())

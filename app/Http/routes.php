@@ -37,10 +37,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/takeoffs/edit/{id}','TakeoffsController@webEdit');
 
-
     Route::get('/pricing', 'PricingController@webIndex');
     Route::get('/pricing/{supplier_id}', 'PricingController@viewSupplierPricing');
-    Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateSupplierPricing');
 
 
     //******************************************************************************************************************
@@ -65,12 +63,18 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/api/pricing/getSuppliers', 'PricingController@getSuppliers');
     Route::get('/api/pricing/{supplier_id}', 'PricingController@getSupplierPricing');
-    //Route::resource('/api/pricing', 'PricingController');
+    Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateSupplierPricing');
+
 
   });
 
 
-  Route::group(['middlware' => ['sentry.member:CustomerService']], function () {
+  Route::group(['middlware' => ['sentry.member:Supplier']], function () {
+    // Supplier Pricing URIs
+    Route::get('/my-pricing', 'PricingController@myPricing');
+    Route::get('/api/pricing/{supplier_id}', 'PricingController@getSupplierPricing');
+    Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateMyPricing');
+
   });
   Route::group(['middlware' => ['sentry.member:Sales']], function () {
   });

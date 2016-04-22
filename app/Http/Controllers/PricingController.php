@@ -69,6 +69,21 @@ class PricingController extends Controller {
         return view('pricing.bySupplier')->with('supplier_id', $supplier_id);
     }
 
+    public function myPricing() {
+        $user = Sentry::getUser();
+        return view('pricing.bySupplier')->with('supplier_id', $user['id']);
+    }
+
+    public function updateMyPricing($supplier_id, $buildingMaterialID) {
+        $user = Sentry::getUser();
+        if($user['id'] != $supplier_id) {
+            return 0;
+        }
+        else {
+            $this->updateSupplierPricing($supplier_id, $buildingMaterialID);
+        }
+    }
+
 
     public function index() {
     }
