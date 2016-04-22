@@ -24,6 +24,10 @@ Route::group(['middleware' => ['web']], function () {
 
 
   });
+
+
+
+  Route::group(['middleware' => ['sentry.auth']], function () {
   /*
    * Routes available to defined user groups.
    */
@@ -76,6 +80,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateMyPricing');
 
   });
-  Route::group(['middlware' => ['sentry.member:Sales']], function () {
+  
+
   });
 });
