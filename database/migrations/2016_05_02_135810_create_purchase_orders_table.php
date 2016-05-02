@@ -19,11 +19,9 @@ class CreatePurchaseOrdersTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->integer('status_id')->unsigned();
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
 
             $table->string('reference_number');
             $table->string('supplier_reference_number');
-
             $table->string('delivery_name');
             $table->string('delivery_address_1');
             $table->string('delivery_address_2');
@@ -32,12 +30,14 @@ class CreatePurchaseOrdersTable extends Migration
             $table->string('delivery_state');
             $table->string('delivery_zip');
             $table->string('delivery_phone');
-
             $table->text('description');
 
             $table->timestamps();
         });
 
+        Schema::table('purchase_orders', function(Blueprint $table) {
+            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+        });
 
 
     }
