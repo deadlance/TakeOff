@@ -84,6 +84,33 @@
 
 @section('content')
     <div class="container">
+
+        <div style="border-bottom: 1px dotted grey; margin-bottom: 15px; padding-bottom: 15px;">
+        <div class='row'>
+            <div class='col-lg-1'>
+                ID
+            </div>
+
+            <div class='col-lg-3'>
+                Name
+            </div>
+            <div class='col-lg-2'>
+                Unit of Measure
+            </div>
+
+            <div class='col-lg-2'>
+                Price
+            </div>
+
+            <div class='col-lg-2'>
+                SKU / Item Number
+            </div>
+
+            <div class='col-lg-2'>
+                Actions
+            </div>
+        </div>
+        </div>
         <div id="suppliers">
         </div>
     </div>
