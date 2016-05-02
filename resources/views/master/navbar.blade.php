@@ -39,6 +39,13 @@
                             <li><a href="/pricing">Supplier Pricing</a></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Purchase Orders
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/purchase_order">New Purchase Order</a></li>
+                        </ul>
+                    </li>
                 @endif
                 @if (Sentry::check() && Sentry::getUser()->inGroup(Sentry::findGroupByName('Supplier')))
                     <li><a href="/my-pricing">My Pricing</a></li>
