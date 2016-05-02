@@ -9,8 +9,8 @@
                 type: "get",
                 dataType: 'json',
                 success: function (data) {
-                    $.each(data, function(idx, obj) {
-                        html = html + "<div class='row' id='" + this['id']+ "-row'>";
+                    $.each(data, function (idx, obj) {
+                        html = html + "<div class='row' id='" + this['id'] + "-row'>";
                         html = html + "<form>";
 
                         html = html + "<div class='col-lg-1'>";
@@ -53,16 +53,16 @@
         });
 
         function saveBM(bmid) {
-            var Sprice              = $("#" + bmid + "-price").val();
+            var Sprice = $("#" + bmid + "-price").val();
             var Sidentifying_number = $("#" + bmid + "-identifying_number").val();
 
             $.ajax({
                 url: '/api/pricing/{{ $supplier_id }}/' + bmid,
                 type: "get",
                 dataType: 'json',
-                data: { price: Sprice, identifying_number: Sidentifying_number },
+                data: {price: Sprice, identifying_number: Sidentifying_number},
                 success: function (data) {
-                    if(data == 1) {
+                    if (data == 1) {
                         $("#" + bmid + "-row").css('background-color', '#F0FFF0');
 
                         setTimeout(function () {
@@ -76,6 +76,9 @@
                             $("#" + bmid + "-row").css('background-color', '#FFFFFF');
                         }, 2000);
                     }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
                 }
             });
         }
@@ -86,31 +89,28 @@
     <div class="container">
 
         <div style="border-bottom: 1px dotted grey; margin-bottom: 15px; padding-bottom: 15px;">
-        <div class='row'>
-            <div class='col-lg-1'>
-                ID
-            </div>
-
-            <div class='col-lg-3'>
-                Name
-            </div>
-            <div class='col-lg-2'>
-                Unit of Measure
-            </div>
-
-            <div class='col-lg-2'>
-                Price
-            </div>
-
-            <div class='col-lg-2'>
-                SKU / Item Number
-            </div>
-
-            <div class='col-lg-2'>
-                Actions
+            <div class='row'>
+                <div class='col-lg-1'>
+                    ID
+                </div>
+                <div class='col-lg-3'>
+                    Name
+                </div>
+                <div class='col-lg-2'>
+                    Unit of Measure
+                </div>
+                <div class='col-lg-2'>
+                    Price
+                </div>
+                <div class='col-lg-2'>
+                    SKU / Item Number
+                </div>
+                <div class='col-lg-2'>
+                    Actions
+                </div>
             </div>
         </div>
-        </div>
+
         <div id="suppliers">
         </div>
     </div>

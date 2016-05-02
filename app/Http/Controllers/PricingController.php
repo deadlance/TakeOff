@@ -75,12 +75,19 @@ class PricingController extends Controller {
     }
 
     public function updateMyPricing($supplier_id, $buildingMaterialID) {
-        $user = Sentry::getUser();
-        if($user['id'] != $supplier_id) {
-            return 0;
+        if (Sentry::check() && Sentry::getUser()->inGroup(Sentry::findGroupByName('Admins'))) {
+            $this->updateSupplierPricing($supplier_id, $buildingMaterialID);
+             return 1;
         }
         else {
-            $this->updateSupplierPricing($supplier_id, $buildingMaterialID);
+
+            $user = Sentry::getUser();
+            if ($user['id'] != $supplier_id) {
+                return 0;
+            } else {
+                $this->updateSupplierPricing($supplier_id, $buildingMaterialID);
+                return 1;
+            }
         }
     }
 
