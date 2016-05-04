@@ -44,7 +44,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/pricing', 'PricingController@webIndex');
     Route::get('/pricing/{supplier_id}', 'PricingController@viewSupplierPricing');
 
-    //Route::get('/purchase_order', '');
+    //Route::get('/purchase_order', 'PurchaseOrderController@newPurchaseOrder');
 
     //******************************************************************************************************************
     // Admin API Routes
