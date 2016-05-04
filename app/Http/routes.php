@@ -44,7 +44,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/pricing', 'PricingController@webIndex');
     Route::get('/pricing/{supplier_id}', 'PricingController@viewSupplierPricing');
 
-    //Route::get('/purchase_order', 'PurchaseOrderController@newPurchaseOrder');
+    Route::get('/purchase_order', 'PurchaseOrderController@webIndex');
+    Route::get('/purchase_order/new', 'PurchaseOrderController@webNewPurchaseOrder');
+    Route::post('/purchase_order/new', 'PurchaseOrderController@webSavePurchaseOrder');
 
     //******************************************************************************************************************
     // Admin API Routes
@@ -71,6 +73,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateSupplierPricing');
 
 
+    Route::resource('/api/status', 'StatusesController');
   });
 
 

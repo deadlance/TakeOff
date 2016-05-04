@@ -43,7 +43,8 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Purchase Orders
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/purchase_order">New Purchase Order</a></li>
+                            <li><a href="/purchase_order">List Purchase Orders</a></li>
+                            <li><a href="/purchase_order/new">New Purchase Order</a></li>
                         </ul>
                     </li>
                 @endif
