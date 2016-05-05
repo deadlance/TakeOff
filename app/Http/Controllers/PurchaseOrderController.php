@@ -49,6 +49,11 @@ class PurchaseOrderController extends Controller {
     }
 
 
+    public function webEdit($purchase_order_id) {
+        $purchase_order = PurchaseOrder::find($purchase_order_id);
+        return view('purchase_order.edit')->with('purchaseOrder', $purchase_order);
+    }
+
     public function webIndex() {
         $purchaseOrders = PurchaseOrder::all();
         return view('purchase_order.index')->with('purchaseOrders', $purchaseOrders);

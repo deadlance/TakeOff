@@ -47,6 +47,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/purchase_order', 'PurchaseOrderController@webIndex');
     Route::get('/purchase_order/new', 'PurchaseOrderController@webNewPurchaseOrder');
     Route::post('/purchase_order/new', 'PurchaseOrderController@webSavePurchaseOrder');
+    Route::get('/purchase_order/edit/{purchase_order_id}', 'PurchaseOrderController@webEdit');
 
     //******************************************************************************************************************
     // Admin API Routes
