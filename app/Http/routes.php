@@ -75,6 +75,10 @@ Route::group(['middleware' => ['web']], function () {
 
 
     Route::resource('/api/status', 'StatusesController');
+
+    Route::resource('/api/purchase_order', 'PurchaseOrderController');
+
+    Route::resource('/api/supplier', 'SupplierController');
   });
 
 

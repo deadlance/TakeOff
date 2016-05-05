@@ -28,7 +28,7 @@ class PurchaseOrderController extends Controller {
         $purchaseOrder->delivery_address_2 = Input::get('delivery_address_2');
         $purchaseOrder->delivery_address_3 = Input::get('delivery_address_3');
         $purchaseOrder->delivery_city = Input::get('delivery_city');
-        $purchaseOrder->delivery_state = Input::get('delivery_phone');
+        $purchaseOrder->delivery_state = Input::get('delivery_state');
         $purchaseOrder->delivery_zip = Input::get('delivery_zip');
         $purchaseOrder->delivery_phone = Input::get('delivery_phone');
         $purchaseOrder->description = Input::get('description');
@@ -36,22 +36,43 @@ class PurchaseOrderController extends Controller {
         return $purchaseOrder;
     }
 
-    public function update() {
+    public function update($purchase_order_id) {
+        /*
+         * TODO: Eventually we need to do some filtering / validation on certain things.
+         */
+        $purchaseOrder = PurchaseOrder::find($purchase_order_id);
+        $purchaseOrder->user_id = (Input::get('user_id') != '' ? Input::get('user_id') : Sentry::getUser()->id);
+        $purchaseOrder->status_id = Input::get('status');
+        $purchaseOrder->reference_number = Input::get('reference_number');
+        $purchaseOrder->delivery_name = Input::get('delivery_name');
+        $purchaseOrder->delivery_address_1 = Input::get('delivery_address_1');
+        $purchaseOrder->delivery_address_2 = Input::get('delivery_address_2');
+        $purchaseOrder->delivery_address_3 = Input::get('delivery_address_3');
+        $purchaseOrder->delivery_city = Input::get('delivery_city');
+        $purchaseOrder->delivery_state = Input::get('delivery_state');
+        $purchaseOrder->delivery_zip = Input::get('delivery_zip');
+        $purchaseOrder->delivery_phone = Input::get('delivery_phone');
+        $purchaseOrder->description = Input::get('description');
+        $purchaseOrder->update();
+        return $purchaseOrder;
     }
 
     public function edit() {
     }
 
-    public function show() {
+    public function show($purchase_order_id) {
+        $purchase_order = PurchaseOrder::find($purchase_order_id);
+        return $purchase_order;
     }
 
     public function create() {
     }
 
-
     public function webEdit($purchase_order_id) {
         $purchase_order = PurchaseOrder::find($purchase_order_id);
-        return view('purchase_order.edit')->with('purchaseOrder', $purchase_order);
+        $group = Sentry::findGroupByName('supplier');
+        $suppliers = Sentry::findAllUsersInGroup($group);
+        return view('purchase_order.edit')->with('purchaseOrder', $purchase_order)->with('suppliers', $suppliers);
     }
 
     public function webIndex() {
