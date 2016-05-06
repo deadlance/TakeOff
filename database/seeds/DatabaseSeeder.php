@@ -690,5 +690,61 @@ class DatabaseSeeder extends Seeder
               'updated_at' => '2016-04-06 19:34:04',
             ),
         ));
+
+        \DB::table('statuses')->delete();
+
+        \DB::table('statuses')->insert(array (
+          0 =>
+            array (
+              'id' => 1,
+              'status' => 'Complete',
+              'created_at' => '2016-04-06 18:25:01',
+              'updated_at' => '2016-04-06 18:26:33',
+            ),
+          1 =>
+            array (
+              'id' => 2,
+              'status' => 'Pending',
+              'created_at' => '2016-04-06 18:25:01',
+              'updated_at' => '2016-04-06 18:26:33',
+            ),
+          2 =>
+            array (
+              'id' => 3,
+              'status' => 'Cancelled',
+              'created_at' => '2016-04-06 18:25:01',
+              'updated_at' => '2016-04-06 18:26:33',
+            ),
+          3 =>
+            array (
+              'id' => 4,
+              'status' => 'Hold',
+              'created_at' => '2016-04-06 18:25:01',
+              'updated_at' => '2016-04-06 18:26:33',
+            ),
+        ));
+
+        DB::table('groups')->delete();
+
+        Sentry::getGroupProvider()->create(array(
+          'name'        => 'Users',
+          'permissions' => array(
+            'admin' => 0,
+            'users' => 1,
+          )));
+
+        Sentry::getGroupProvider()->create(array(
+          'name'        => 'Admins',
+          'permissions' => array(
+            'admin' => 1,
+            'users' => 1,
+          )));
+
+        Sentry::getGroupProvider()->create(array(
+          'name'        => 'Supplier',
+          'permissions' => array(
+            'admin' => 0,
+            'users' => 1,
+          )));
     }
 }
