@@ -17,6 +17,8 @@
         });
 
         function getPricing() {
+            var items = 0;
+            $("#line_items").html('');
             $.ajax({
                 url: '/api/pricing/' + supplierID,
                 type: "get",
@@ -26,8 +28,17 @@
                     for(var i = 0, len = data.length; i < len; i++) {
                         if(data[i]['price'] != '') {
                             // These are the only items we want to allow the user to add to the purchase order.
-                            $("#line_items").html(data[i]['price'] + "<br />");
+                            $("#line_items").append(data[i]['id'] + "<br />");
+                            $("#line_items").append(data[i]['name'] + "<br />");
+                            $("#line_items").append(data[i]['price'] + "<br />");
+                            $("#line_items").append(data[i]['unit_of_measure']['name'] + "<br />");
+                            $("#line_items").append(data[i]['updated_at'] + "<br />");
+                            console.log(data[i]);
+                            items++;
                         }
+                    }
+                    if(items == 0) {
+                        $("#line_items").html("<div class='col-lg-12'><h6 style='color: red'>The selected supplier has no items priced.</h6></div>");
                     }
                 }
             });
