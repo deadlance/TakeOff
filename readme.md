@@ -6,6 +6,22 @@ Suppliers need to be able to set their own prices and identifying numbers / sku
 
 Admin needs to be able to view / edit Supplier pricing and identifying numbers / sku.
 
+# Gotchas...
+Make sure the file SentryGroupSeeder.php contains the following -
+
+        Sentry::getGroupProvider()->create(array(
+
+          'name'        => 'Supplier',
+
+          'permissions' => array(
+
+            'admin' => 0,
+
+            'users' => 1,
+            
+          )));
+
+
 # composer install
 
 php artisan migrate:refresh --seed
