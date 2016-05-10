@@ -13,7 +13,26 @@
             getStatuses();
             getSuppliers();
             loadPurchaseOrder();
+
         });
+
+        function getPricing() {
+            $.ajax({
+                url: '/api/pricing/' + supplierID,
+                type: "get",
+                dataType: 'json',
+                success: function (data) {
+
+                    for(var i = 0, len = data.length; i < len; i++) {
+                        if(data[i]['price'] != '') {
+                            // These are the only items we want to allow the user to add to the purchase order.
+                            $("#line_items").html(data[i]['price'] + "<br />");
+                        }
+                    }
+                }
+            });
+
+        }
 
         function getSuppliers() {
             $.ajax({
@@ -79,9 +98,10 @@
                     $("#delivery_state").val(data['delivery_state']);
                     $("#delivery_zip").val(data['delivery_zip']);
                     $("#delivery_phone").val(data['delivery_phone']);
-                    
+
                     getStatuses();
                     getSuppliers();
+                    getPricing();
                 }
             });
 
@@ -144,14 +164,13 @@
             <div class="row">
                 <div class="col-lg-12 text-right">
                     <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#header_row">
-                        Collapse
+                        Header - Collapse
                     </button>
                 </div>
             </div>
             <div id="header_row" class="collapse in well">
                 <div class="row">
                     <div class="col-lg-6">
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_name">Purchase Order ID : </label>
@@ -160,26 +179,22 @@
                                 {{ $purchaseOrder['id'] }}
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label>Created Date : </label>
                                 <div id="created_at"></div>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label>Updated Date : </label>
                                 <div id="updated_at"></div>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="user_id">Assigned To : </label>
                                 <select name="user_id" class="form-control" id="user_id">
-
                                 </select>
                             </div>
                         </div>
@@ -188,9 +203,7 @@
                             <div class='form-group'>
                                 <label for="status">Status</label>
                                 <select name="status" class="form-control" id="status">
-
                                 </select>
-                                <!--{{ $purchaseOrder['status_id'] }}-->
                             </div>
                         </div>
 
@@ -201,7 +214,6 @@
                                        id="reference_number"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="description">Description</label>
@@ -209,17 +221,14 @@
                                           id="description"></textarea>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-lg-6">
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_name">Delivery Name / Project</label>
                                 <input type="text" class="form-control" name="delivery_name" id="delivery_name"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_address_1">Address</label>
@@ -235,7 +244,6 @@
                                        id="delivery_address_2"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_address_3">Address Extended</label>
@@ -243,35 +251,30 @@
                                        id="delivery_address_3"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_city">City</label>
                                 <input type="text" class="form-control" name="delivery_city" id="delivery_city"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_state">State</label>
                                 <input type="text" class="form-control" name="delivery_state" id="delivery_state"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_zip">Zip Code</label>
                                 <input type="text" class="form-control" name="delivery_zip" id="delivery_zip"/>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="delivery_phone">Phone</label>
                                 <input type="text" class="form-control" name="delivery_phone" id="delivery_phone"/>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="row">
@@ -287,6 +290,22 @@
         </form>
     </div>
 
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-right">
+                <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#line_items_block">
+                    Line Items - Collapse
+                </button>
+            </div>
+        </div>
+        <div id="line_items_block" class="collapse in well">
+            <div class="row">
+                <div class="col-lg-12"><h6>If you change suppliers, all the items will be removed from this purchase order.</h6></div>
+                <div id="line_items"></div>
+            </div>
+        </div>
+    </div>
 
 @endsection
 

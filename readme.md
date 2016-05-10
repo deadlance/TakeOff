@@ -12,6 +12,8 @@ php artisan migrate:refresh --seed
 
 php artisan db:seed --class=SentinelDatabaseSeeder
 
+Be sure to add the admin to the supplier group in the user_group table._
+
 
 # Interesting Articles for Later Reading
 
