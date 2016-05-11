@@ -9,12 +9,21 @@ use App\PurchaseOrder;
 
 class PurchaseOrderController extends Controller {
 
+    /**
+     *
+     */
     public function index() {
     }
 
+    /**
+     *
+     */
     public function destroy() {
     }
 
+    /**
+     * @return PurchaseOrder
+     */
     public function store() {
         /*
          * TODO: Eventually we need to do some filtering / validation on certain things.
@@ -36,6 +45,10 @@ class PurchaseOrderController extends Controller {
         return $purchaseOrder;
     }
 
+    /**
+     * @param $purchase_order_id
+     * @return mixed
+     */
     public function update($purchase_order_id) {
         /*
          * TODO: Eventually we need to do some filtering / validation on certain things.
@@ -57,17 +70,31 @@ class PurchaseOrderController extends Controller {
         return $purchaseOrder;
     }
 
+    /**
+     *
+     */
     public function edit() {
     }
 
+    /**
+     * @param $purchase_order_id
+     * @return mixed
+     */
     public function show($purchase_order_id) {
         $purchase_order = PurchaseOrder::find($purchase_order_id);
         return $purchase_order;
     }
 
+    /**
+     *
+     */
     public function create() {
     }
 
+    /**
+     * @param $purchase_order_id
+     * @return mixed
+     */
     public function webEdit($purchase_order_id) {
         $purchase_order = PurchaseOrder::find($purchase_order_id);
         $group = Sentry::findGroupByName('supplier');
@@ -75,15 +102,24 @@ class PurchaseOrderController extends Controller {
         return view('purchase_order.edit')->with('purchaseOrder', $purchase_order)->with('suppliers', $suppliers);
     }
 
+    /**
+     * @return $this
+     */
     public function webIndex() {
         $purchaseOrders = PurchaseOrder::all();
         return view('purchase_order.index')->with('purchaseOrders', $purchaseOrders);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function webNewPurchaseOrder() {
         return view('purchase_order.new');
     }
 
+    /**
+     *
+     */
     public function webSavePurchaseOrder() {
         echo $this->store();
 
