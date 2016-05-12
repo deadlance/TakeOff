@@ -313,6 +313,8 @@
         <div id="line_items_block" class="collapse in well">
             <div class="row">
                 <div class="col-lg-12"><h6>If you change suppliers, all the items will be removed from this purchase order.</h6></div>
+            </div>
+            <div class="row">
                 <div id="line_items"></div>
             </div>
         </div>
