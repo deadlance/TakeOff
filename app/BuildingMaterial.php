@@ -22,7 +22,6 @@ class BuildingMaterial extends Model
     }
 
     public function price() {
-        //return $this->belongsToMany('App\BuildingMaterial','building_material_user', 'building_material_id', 'user_id')->withPivot('price')->withPivot('identifying_number');
         return $this->belongsToMany('App\BuildingMaterial','building_material_user', 'building_material_id', 'user_id')->select(array('building_material_id', 'user_id', 'price','identifying_number'));
     }
 }

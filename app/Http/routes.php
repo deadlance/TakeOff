@@ -1,4 +1,6 @@
 <?php
+
+
 Route::group(['middleware' => ['web']], function () {
 
   Route::group(['middleware' => ['sentry.guest']], function () {
@@ -33,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
    */
   Route::group(['middleware' => ['sentry.member:Admins']], function () {
 
+
     // Non API Routes
     Route::get('/building_materials', 'BuildingMaterialsController@webIndex');
     Route::get('/takeoffs','TakeoffsController@webIndex');
@@ -48,6 +51,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/purchase_order/new', 'PurchaseOrderController@webNewPurchaseOrder');
     Route::post('/purchase_order/new', 'PurchaseOrderController@webSavePurchaseOrder');
     Route::get('/purchase_order/edit/{purchase_order_id}', 'PurchaseOrderController@webEdit');
+
 
     //******************************************************************************************************************
     // Admin API Routes
@@ -72,6 +76,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/api/pricing/getSuppliers', 'PricingController@getSuppliers');
     Route::get('/api/pricing/{supplier_id}', 'PricingController@getSupplierPricing');
     Route::get('/api/pricing/{supplier_id}/{building_material_id}', 'PricingController@updateSupplierPricing');
+
+    Route::get('/api/purchase_order/addItem/{purchase_order_id}', 'PurchaseOrderController@addItem');
+    Route::get('/api/purchase_order/removeItem/{purchase_order_id}/{building_material_id}', 'PurchaseOrderController@removeItem');
+    Route::get('/api/purchase_order/removeAll/{purchase_order_id}', 'PurchaseOrderController@removeAll');
 
 
     Route::resource('/api/status', 'StatusesController');

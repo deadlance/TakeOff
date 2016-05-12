@@ -16,8 +16,35 @@
 
         });
 
+        function addItem(itemID) {
+            var description = $("#line_item_" + itemID + " input[name=description]").val();
+            var price = $("#line_item_" + itemID + " input[name=price]").val();
+            var qty = $("#line_item_" + itemID + " input[name=qty]").val();
+            var line_item_id = $("#line_item_" + itemID + " input[name=line_item_id]").val();
+            var csrf = $("#line_item_" + itemID + " input[name=csrf]").val();
+
+            if(qty < 0) {
+                $.ajax({
+                    url: '/api/purchase_order/addItem/' + id,
+                    type: "get",
+                    dataType: 'json',
+                    data: {
+                        _token: csrf,
+                        description: description,
+                        price: price,
+                        qty: qty,
+                        line_item_id: line_item_id
+                    },
+                    success: function (data) {
+
+                    }
+                });
+            }
+        }
+
         function getPricing() {
             var items = 0;
+            var html = ''
             $("#line_items").html('');
             $.ajax({
                 url: '/api/pricing/' + supplierID,
@@ -25,19 +52,25 @@
                 dataType: 'json',
                 success: function (data) {
 
-                    for(var i = 0, len = data.length; i < len; i++) {
-                        if(data[i]['price'] != '') {
+                    for (var i = 0, len = data.length; i < len; i++) {
+                        if (data[i]['price'] != '') {
                             // These are the only items we want to allow the user to add to the purchase order.
-                            $("#line_items").append(data[i]['id'] + "<br />");
-                            $("#line_items").append(data[i]['name'] + "<br />");
-                            $("#line_items").append(data[i]['price'] + "<br />");
-                            $("#line_items").append(data[i]['unit_of_measure']['name'] + "<br />");
-                            $("#line_items").append(data[i]['updated_at'] + "<br />");
-                            console.log(data[i]);
+
+                            html = html + '<form id="line_item_' + data[i]['id'] + '" onFocusOut="addItem(' + data[i]['id'] + ');">';
+                            html = html + '<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}"/>';
+                            html = html + '<div class="col-lg-1"><input type="hidden" name="line_item_id" value="' + data[i]['id'] + '">' + data[i]['id'] + '</div>';
+                            html = html + '<div class="col-lg-2">' + data[i]['name'] + '</div>';
+                            html = html + '<div class="col-lg-2"><input type="hidden" name="price" value="' + data[i]['price'] + '">' + data[i]['price'] + '</div>';
+                            html = html + '<div class="col-lg-2">' + data[i]['unit_of_measure']['name'] + '</div>';
+                            html = html + '<div class="col-lg-2"><input type="text" name="qty" class="form-control" /></div>';
+                            html = html + '<div class="col-lg-3"><input type="text" name="description" class="form-control" /></div>';
+                            html = html + '</form>';
+                            $("#line_items").append(html);
+                            //console.log(data[i]);
                             items++;
                         }
                     }
-                    if(items == 0) {
+                    if (items == 0) {
                         $("#line_items").html("<div class='col-lg-12'><h6 style='color: red'>The selected supplier has no items priced.</h6></div>");
                     }
                 }
@@ -166,6 +199,20 @@
                 }
             });
         } // end of updatePurchaseOrder()
+
+
+        function changeSupplier() {
+            if (confirm('This will delete all items from the purchase order.')) {
+
+                // first we need to delete all the line items for the PO
+                updatePurchaseOrder();
+            }
+            else {
+                $('#user_id').val(supplierID);
+            }
+        } // End of changeSupplier
+
+
     </script>
 @endsection
 
@@ -205,7 +252,7 @@
                         <div class="col-lg-12">
                             <div class='form-group'>
                                 <label for="user_id">Assigned To : </label>
-                                <select name="user_id" class="form-control" id="user_id">
+                                <select name="user_id" class="form-control" id="user_id" onChange="changeSupplier()">
                                 </select>
                             </div>
                         </div>
@@ -305,18 +352,33 @@
 
         <div class="row">
             <div class="col-lg-12 text-right">
-                <button type="button" class="btn btn-link btn-xs" data-toggle="collapse" data-target="#line_items_block">
+                <button type="button" class="btn btn-link btn-xs" data-toggle="collapse"
+                        data-target="#line_items_block">
                     Line Items - Collapse
                 </button>
             </div>
         </div>
         <div id="line_items_block" class="collapse in well">
             <div class="row">
-                <div class="col-lg-12"><h6>If you change suppliers, all the items will be removed from this purchase order.</h6></div>
+                <div class="col-lg-12"><h6>If you change suppliers, all the items will be removed from this purchase
+                        order.</h6></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1">ID</div>
+                <div class="col-lg-2">Name</div>
+                <div class="col-lg-2">Price</div>
+                <div class="col-lg-2">Units</div>
+                <div class="col-lg-2">QTY</div>
+                <div class="col-lg-3">Description</div>
             </div>
             <div class="row">
                 <div id="line_items"></div>
             </div>
+            <div class="row">
+                <div class="col-lg-12"><h6>Totals</h6></div>
+                <div id="totals"></div>
+            </div>
+
         </div>
     </div>
 

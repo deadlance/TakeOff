@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\PurchaseOrder;
+
 use App\Http\Requests;
 use Input, Validator, Session, Redirect, DB, Sentry;
-use App\PurchaseOrder;
+
+
 
 class PurchaseOrderController extends Controller {
 
@@ -89,6 +92,26 @@ class PurchaseOrderController extends Controller {
      *
      */
     public function create() {
+    }
+
+    public function addItem($purchase_order_id) {
+        $building_material_id = Input::get('line_item_id');
+        $description = Input::get('description');
+        $price = Input::get('price');
+        $quantity = Input::get('qty');
+        $purchase_order = PurchaseOrder::find($purchase_order_id);
+        $purchase_order->building_materials()->detach($building_material_id);
+        return ($purchase_order->building_materials()->attach($building_material_id, ['description' => $description, 'price' => $price, 'quantity' => $quantity])) ? 0 : 1;
+    }
+
+    public function removeItem($purchase_order_id, $building_material_id) {
+        $purchase_order = PurchaseOrder::find($purchase_order_id);
+        return ($purchase_order->building_materials()->detach($building_material_id)) ? 0 : 1;
+    }
+
+    public function removeAll($purchase_order_id) {
+        $purchase_order = PurchaseOrder::find($purchase_order_id);
+        return ($purchase_order->building_materials()->detach()) ? 0 : 1;
     }
 
     /**

@@ -12,6 +12,10 @@ class PurchaseOrder extends Model
                            'delivery_city', 'delivery_state', 'delivery_zip', 'delivery_phone', 'description'];
 
 
+    public function building_materials() {
+        return $this->belongsToMany('App\BuildingMaterial', 'building_material_purchase_order', 'purchase_order_id', 'building_material_id')->select(array('purchase_order_id','building_material_id'));
+    }
+
     public function supplier() {
         return $this->hasOne('App\User');
     }
